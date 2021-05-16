@@ -3,6 +3,10 @@ const app = express();
 const holidays = require('./components/Holidays');
 const PORT = process.env.PORT || 8000;
 
+app.get('/', (req, res) => {
+  res.send('API access available at /api');
+});
+
 app.get('/api', (req, res) => {
   res.json(holidays);
 });
