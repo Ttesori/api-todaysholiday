@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const holidays = require('./components/Holidays');
 const PORT = process.env.PORT || 8000;
+const cors = require('cors');
+
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.send('API access available at /api');
