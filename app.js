@@ -1,11 +1,10 @@
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 8000;
-const CONFIG = require('./config');
 const cors = require('cors');
 const MongoClient = require('mongodb').MongoClient;
 const { ObjectId } = require('mongodb');
-const mConnectionString = `mongodb+srv://${CONFIG.MONGO_DB || process.env.MONGO_DB}:${CONFIG.MONGO_PASS || process.env.MONGO_PASS}@cluster0.0j8hc.mongodb.net/todaysholiday?retryWrites=true&w=majority`;
+const mConnectionString = `mongodb+srv://${process.env.MONGO_DB}:${process.env.MONGO_PASS}@cluster0.0j8hc.mongodb.net/todaysholiday?retryWrites=true&w=majority`;
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));

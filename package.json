@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon -r dotenv/config app.js"
   },
   "author": "Toni Tesori",
   "license": "ISC",
@@ -15,6 +15,7 @@
     "mongodb": "^3.6.6"
   },
   "devDependencies": {
+    "dotenv": "^9.0.2",
     "nodemon": "^2.0.7"
   }
 }
