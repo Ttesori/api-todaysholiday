@@ -98,11 +98,8 @@ app.put('/holidays', async (req, res) => {
     let resp = await holidaysCollection.findOneAndUpdate(
       { _id: ObjectId(req.body.id) },
       {
-        $set: {
-          name: req.body.name,
-          month: req.body.month,
-          day: req.body.day
-        }
+        // you were here -- just updated the route to include whichever vars are passed in the update object. So youll needt o update postman for prod once you push the update. On view, you were working on deleting a holiday and being able to update name of holiday from UI
+        $set: req.body.update
       });
     res.status(200).json(resp.value);
   }
