@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>
+    <%= data.months[data.currMonth] %>
+  </h1>
+  <a href="/admin/<%= data.prevMonth %>">Previous Month</a> |
+  <a href="/admin/<%= data.nextMonth %>">Next Month</a>
+  <table>
+    <tr>
+      <th>Date</th>
+      <th>Holiday</th>
+      <th>Actions</th>
+    </tr>
+    <% data.results.forEach(result=> { %>
+      <tr id="<%= result._id %>">
+        <td>
+          <%= result.month %>/<%= result.day %>
+        </td>
+        <td contenteditable="true" class="th-txtName">
+          <%= result.name %>
+        </td>
+        <td><button class="th-btnDelete">Delete</button></td>
+      </tr>
+      <% }); %>
+  </table>
+
+  <script>
+    let buttons = document.querySelectorAll('.th-btnDelete');
+    buttons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        console.log(e.path[2].id);
+      })
+    });
+    let names = document.querySelectorAll('.th-txtName');
+    let nameTxtVal;
+    names.forEach(nameTxt => {
+      nameTxt.addEventListener('click', (e) => {
+        nameTxtVal = e.target.textContent.trim();
+      });
+      nameTxt.addEventListener('blur', (e) => {
+        let value = e.target.textContent.trim();
+        console.log(e);
+        if (nameTxtVal !== value) {
+          console.log(e.path[1].id, value);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

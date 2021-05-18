@@ -5,8 +5,10 @@ const { ObjectId } = require('mongodb');
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-// Middleware
+// Settings and Middleware
+app.set('view engine', 'ejs');
 app.use(cors());
+app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -50,6 +52,25 @@ app.get('/holidays/:month/:day', async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+app.get('/admin/:month', async (req, res) => {
+  try {
+    let results = await holidaysCollection.find({ month: req.params.month }).toArray();
+    let month = parseInt(req.params.month);
+    res.render('index.ejs', {
+      data: {
+        results: results,
+        months: ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        currMonth: month,
+        prevMonth: month === 1 ? 12 : month - 1,
+        nextMonth: month === 12 ? 1 : month + 1
+      }
+    });
+  } catch (err) {
+    console.log(err);
+  }
+
 });
 
 // POST route
