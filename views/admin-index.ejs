@@ -37,7 +37,9 @@
     let buttons = document.querySelectorAll('.th-btnDelete');
     buttons.forEach(button => {
       button.addEventListener('click', (e) => {
-        console.log(e.path[2].id);
+        //console.log(e.path[2].id);
+        // Delete item from DB
+        deleteHoliday(e.path[2].id);
       })
     });
     let names = document.querySelectorAll('.th-txtName');
@@ -48,12 +50,53 @@
       });
       nameTxt.addEventListener('blur', (e) => {
         let value = e.target.textContent.trim();
-        console.log(e);
         if (nameTxtVal !== value) {
-          console.log(e.path[1].id, value);
+          // Update name in DB
+          updateHoliday(e.path[1].id, value);
         }
       });
     });
+
+    const updateHoliday = async (id, value) => {
+      let update = {
+        id: id,
+        update: {
+          name: value
+        }
+      };
+      try {
+        let resp = await fetch('/holidays', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(update)
+        });
+        if (resp.status === 200) {
+          location.reload();
+        }
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    const deleteHoliday = async (id) => {
+      console.log(id);
+      try {
+        let resp = await fetch('/holidays', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ id: id })
+        });
+        console.log(resp);
+        location.reload();
+      } catch (error) {
+        console.log(error);
+      }
+    }
   </script>
 </body>
 

@@ -3,9 +3,9 @@ const Holiday = require('../models/Holiday');
 module.exports = {
   getHolidaysByMonth: async (req, res) => {
     try {
-      let results = await Holiday.find({ month: req.params.month });
+      let results = await Holiday.find({ month: req.params.month }).sort({ day: 1 });
       let month = parseInt(req.params.month);
-      res.render('index.ejs', {
+      res.render('admin-index.ejs', {
         data: {
           results: results,
           months: ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],

@@ -43,8 +43,8 @@ module.exports = {
       console.log(err)
     }
   },
-  // you were here -- just updated the route to include whichever vars are passed in the update object. So youll needt o update postman for prod once you push the update. On view, you were working on deleting a holiday and being able to update name of holiday from UI
   putHoliday: async (req, res) => {
+    console.log(req.body.id, req.body.update)
     try {
       let resp = await Holiday.findOneAndUpdate(
         { _id: req.body.id },
@@ -59,7 +59,7 @@ module.exports = {
   deleteHoliday: async (req, res) => {
     try {
       let result = await Holiday.deleteOne({ _id: req.body.id });
-      res.status(200).json(result);
+      res.status(200).json(result.deletedCount);
     } catch (err) {
       console.log(err);
       res.status(400).json(err);

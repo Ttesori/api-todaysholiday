@@ -4,4 +4,5 @@ const adminController = require('../controllers/admin');
 
 router.get('/:month', adminController.getHolidaysByMonth);
 
+
 module.exports = router;
