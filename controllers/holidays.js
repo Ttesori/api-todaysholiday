@@ -71,7 +71,6 @@ module.exports = {
       let query = decodeURIComponent(req.query.s);
       let regex = new RegExp(query, 'i')
       let result = await Holiday.find({ name: regex }).exec();
-      console.log(result);
       res.json(result);
     } catch (error) {
       console.log(err);
