@@ -8,6 +8,7 @@ router.post('/', isAuthenticated, holidaysController.postHoliday);
 router.put('/', isAuthenticated, holidaysController.putHoliday);
 router.delete('/', isAuthenticated, holidaysController.deleteHoliday);
 router.get('/search', holidaysController.searchHolidays);
+router.post('/tag', holidaysController.addTagToHoliday);
 router.get('/:month', holidaysController.getHolidaysByMonth);
 router.get('/:month/:day', holidaysController.getHolidaysByMonthDay);
 

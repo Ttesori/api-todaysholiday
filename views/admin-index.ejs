@@ -19,6 +19,7 @@
     <tr>
       <th>Date</th>
       <th>Holiday</th>
+      <th>Tags</th>
       <th>Actions</th>
     </tr>
     <% data.results.forEach(result=> { %>
@@ -29,93 +30,44 @@
         <td contenteditable="true" class="th-txtName">
           <%= result.name %>
         </td>
+        <td>
+          <% let tag=result.tags[0] ? result.tags[0].name : '' %>
+            <input list="th-tag-options" class="th-tag" name="th-tag" placeholder="Type to add..." value="<%= tag %>">
+        </td>
         <td><button class="th-btnDelete">Delete</button></td>
       </tr>
       <% }); %>
   </table>
-
-  <script>
-    let urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('updated')) {
-      //TODO: Work on way to show which has been updated
-      let id = urlParams.get('which');
-      document.getElementById(id).classList.add('updated');
-    }
-
-    let buttons = document.querySelectorAll('.th-btnDelete');
-    buttons.forEach(button => {
-      button.addEventListener('click', (e) => {
-        //console.log(e.path[2].id);
-        // Delete item from DB
-        deleteHoliday(e.path[2].id);
-      })
-    });
-    let names = document.querySelectorAll('.th-txtName');
-    let nameTxtVal;
-    names.forEach(nameTxt => {
-      nameTxt.addEventListener('click', (e) => {
-        nameTxtVal = e.target.textContent.trim();
-      });
-      nameTxt.addEventListener('blur', (e) => {
-        let value = e.target.textContent.trim();
-        if (nameTxtVal !== value) {
-          // Update name in DB
-          updateHoliday(e.path[1].id, value);
-        }
-      });
-    });
-
-    document.querySelector('.btn-search').addEventListener('click', async () => {
-      let query = encodeURIComponent(document.querySelector('.text-search').value);
-      let resp = await fetch(`/holidays/search?s=${query}`);
-      let results = await resp.json();
-      let resultsEl = document.querySelector('.search-results');
-      if (!results.length) return resultsEl.textContent = 'No results found.';
-      results.forEach(result => {
-        resultsEl.innerHTML += `<li>${result.month}/${result.day}: ${result.name}</li>`;
-      });
-    });
-
-    const updateHoliday = async (id, value) => {
-      let update = {
-        id: id,
-        update: {
-          name: value
-        }
-      };
-      try {
-        let resp = await fetch('/holidays', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(update)
-        });
-        if (resp.status === 200) {
-          // Holiday updated successfully
-          location.href = `?updated=true&which=${id}`
-        }
-
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    const deleteHoliday = async (id) => {
-      console.log(id);
-      try {
-        let resp = await fetch('/holidays', {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ id: id })
-        });
-        console.log(resp);
-        location.reload();
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  </script>
+  <datalist id="th-tag-options">
+    <% data.tags.forEach(tag=> { %>
+      <option value="<%= tag.name %>">
+        <%= tag.name %>
+      </option>
+      <% }) %>
+  </datalist>
+  <hr>
+  <h2>Tags</h2>
+  <table>
+    <tr>
+      <th>Tag Name</th>
+      <th>Count</th>
+      <th></th>
+    </tr>
+    <!-- TODO: implement editable tags, implement add tag from this section -->
+    <% data.tags.forEach(tag=> { %>
+      <tr data-id="<%= tag._id %>">
+        <td contenteditable="true">
+          <%= tag.name %>
+        </td>
+        <td>
+          <%= tag.count %>
+        </td>
+        <td>
+          <%= tag.count===0 ? 'deletelink' : '' %>
+        </td>
+      </tr>
+      <% }) %>
+  </table>
+  <form><input type="text" name="" id=""><button>Add Tag</button></form>
+  <script src="/js/admin.js"></script>
   <%- include('includes/_foot') %>
