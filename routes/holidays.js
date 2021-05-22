@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const holidaysController = require('../controllers/holidays');
+const { isAuthenticated } = require('../middleware/auth');
 
 router.get('/', holidaysController.getHolidays);
+router.post('/', isAuthenticated, holidaysController.postHoliday);
+router.put('/', isAuthenticated, holidaysController.putHoliday);
+router.delete('/', isAuthenticated, holidaysController.deleteHoliday);
+router.get('/search', holidaysController.searchHolidays);
 router.get('/:month', holidaysController.getHolidaysByMonth);
 router.get('/:month/:day', holidaysController.getHolidaysByMonthDay);
-router.post('/', holidaysController.postHoliday);
-router.put('/', holidaysController.putHoliday);
-router.delete('/', holidaysController.deleteHoliday);
 
 module.exports = router;

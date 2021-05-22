@@ -65,5 +65,18 @@ module.exports = {
       console.log(err);
       res.status(400).json(err);
     }
+  },
+  searchHolidays: async (req, res) => {
+    try {
+      let query = decodeURIComponent(req.query.s);
+      let regex = new RegExp(query, 'i')
+      let result = await Holiday.find({ name: regex }).exec();
+      console.log(result);
+      res.json(result);
+    } catch (error) {
+      console.log(err);
+      res.status(400).json(err);
+    }
+
   }
 }

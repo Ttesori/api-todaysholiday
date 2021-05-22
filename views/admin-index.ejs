@@ -5,6 +5,11 @@
     }
   </style>
   <a href="/admin/logout" class="btn">Logout</a>
+  <div class="formgroup">
+    <input type="text" name="search" id="search" class="text-search">
+    <button type="button" class="btn-search">Search</button>
+    <div class="search-results"></div>
+  </div>
   <h1>
     <%= data.months[data.currMonth] %>
   </h1>
@@ -57,6 +62,17 @@
           // Update name in DB
           updateHoliday(e.path[1].id, value);
         }
+      });
+    });
+
+    document.querySelector('.btn-search').addEventListener('click', async () => {
+      let query = encodeURIComponent(document.querySelector('.text-search').value);
+      let resp = await fetch(`/holidays/search?s=${query}`);
+      let results = await resp.json();
+      let resultsEl = document.querySelector('.search-results');
+      if (!results.length) return resultsEl.textContent = 'No results found.';
+      results.forEach(result => {
+        resultsEl.innerHTML += `<li>${result.month}/${result.day}: ${result.name}</li>`;
       });
     });
 
