@@ -1,4 +1,5 @@
 const Holiday = require('../models/Holiday');
+const Tag = require('../models/Tag');
 
 module.exports = {
   getHolidays: async (req, res) => {
@@ -11,7 +12,7 @@ module.exports = {
   },
   getHolidaysByMonth: async (req, res) => {
     try {
-      let results = await Holiday.find({ month: req.params.month });
+      let results = await Holiday.find({ month: req.params.month }).populate('tags');
       res.json(results);
     } catch (err) {
       console.log(err);
@@ -77,5 +78,33 @@ module.exports = {
       res.status(400).json(err);
     }
 
+  },
+  addTagToHoliday: async (req, res) => {
+    try {
+      let newTagMaybe = req.body.tagname.toLowerCase();
+      let tag = await Tag.findOne({ name: newTagMaybe });
+      if (!tag) {
+        // Create new tag
+        console.log('Creating new tag');
+        let newTag = new Tag({
+          name: req.body.tagname
+        });
+        tag = await newTag.save();
+      }
+      let holiday = await Holiday.findOne({ _id: req.body.holiday_id });
+      if (!holiday) res.status(404).send('Holiday not found');
+      holiday.tags = [{ _id: tag._id }];
+      let result = await holiday.save();
+      res.status(200).json(result);
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  getTags: async (req, res) => {
+    try {
+
+    } catch (error) {
+
+    }
   }
 }
