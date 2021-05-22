@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-
-<body>
+<%- include('includes/_head') %>
+  <style>
+    .updated {
+      color: green;
+    }
+  </style>
+  <a href="/admin/logout" class="btn">Logout</a>
   <h1>
     <%= data.months[data.currMonth] %>
   </h1>
@@ -34,6 +30,13 @@
   </table>
 
   <script>
+    let urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('updated')) {
+      //TODO: Work on way to show which has been updated
+      let id = urlParams.get('which');
+      document.getElementById(id).classList.add('updated');
+    }
+
     let buttons = document.querySelectorAll('.th-btnDelete');
     buttons.forEach(button => {
       button.addEventListener('click', (e) => {
@@ -73,7 +76,8 @@
           body: JSON.stringify(update)
         });
         if (resp.status === 200) {
-          location.reload();
+          // Holiday updated successfully
+          location.href = `?updated=true&which=${id}`
         }
 
       } catch (error) {
@@ -98,6 +102,4 @@
       }
     }
   </script>
-</body>
-
-</html>
+  <%- include('includes/_foot') %>
