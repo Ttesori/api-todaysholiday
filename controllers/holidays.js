@@ -49,6 +49,7 @@ module.exports = {
       let resp = await Holiday.findOneAndUpdate(
         { _id: req.body.id },
         req.body.update);
+      console.log('Holiday updated...');
       res.status(200).json(resp);
     }
     catch (err) {
