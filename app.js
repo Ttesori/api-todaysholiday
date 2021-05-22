@@ -2,7 +2,6 @@ const cors = require('cors');
 const express = require('express');
 const session = require('express-session');
 const connectDB = require('./config/database');
-const bcrypt = require('bcrypt');
 const app = express();
 const passport = require('passport');
 const passportSettings = require('./config/passport');
