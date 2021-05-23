@@ -1,4 +1,5 @@
 const Tag = require('../models/Tag');
+const Holidays = require('../models/Holiday');
 
 module.exports = {
   getTags: async (req, res) => {
@@ -37,6 +38,23 @@ module.exports = {
       res.status(200).json(result);
     } catch (err) {
       console.log(err)
+    }
+  },
+  deleteTag: async (req, res) => {
+    try {
+      let tagIdToDelete = req.body.id;
+      let holidaysWithTag = await Holidays.find({ tags: tagIdToDelete }).countDocuments();
+      if (holidaysWithTag === 0) {
+        // Proceed with deleting
+        let result = await Tag.findOneAndDelete({ _id: tagIdToDelete });
+        res.status(200).json(result);
+      } else {
+        // Return error
+        res.status(400).json({ error: 'Cannot remove tag, uses must be 0' });
+      }
+
+    } catch (err) {
+      console.log(err);
     }
   }
 }
