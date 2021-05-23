@@ -50,24 +50,22 @@
   <table>
     <tr>
       <th>Tag Name</th>
-      <th>Count</th>
       <th></th>
     </tr>
     <!-- TODO: implement editable tags, implement add tag from this section -->
     <% data.tags.forEach(tag=> { %>
-      <tr data-id="<%= tag._id %>">
-        <td contenteditable="true">
-          <%= tag.name %>
+      <tr>
+        <td contenteditable="true" data-id="<%= tag._id %>">
+          <%= tag.name %> (<%= tag.count %>)
         </td>
         <td>
-          <%= tag.count %>
-        </td>
-        <td>
-          <%= tag.count===0 ? 'deletelink' : '' %>
+          <% if (tag.count===0) { %>
+            <button class="btn-removeTag" data-id="<%= tag._id %>">Delete</button>
+            <% } %>
         </td>
       </tr>
       <% }) %>
   </table>
-  <form><input type="text" name="" id=""><button>Add Tag</button></form>
+  <form><input type="text" name="txt-addTag" id="txt-addTag">Add Tag</button></form>
   <script src="/js/admin.js"></script>
   <%- include('includes/_foot') %>
