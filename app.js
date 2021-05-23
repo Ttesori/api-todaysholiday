@@ -1,7 +1,9 @@
 const cors = require('cors');
 const express = require('express');
 const session = require('express-session');
+const mongoose = require('mongoose');
 const connectDB = require('./config/database');
+const MongoStore = require('connect-mongo');
 const app = express();
 const passport = require('passport');
 const passportSettings = require('./config/passport');
@@ -24,7 +26,8 @@ app.use(express.json());
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  store: MongoStore.create({ mongoUrl: process.env.DB_STRING })
 }));
 
 // Set up passport
