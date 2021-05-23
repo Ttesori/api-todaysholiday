@@ -1,72 +1,68 @@
 <%- include('includes/_head') %>
-  <a href="/admin/logout" class="btn">Logout</a>
-  <div class="formgroup">
+  <div class="container">
+    <!-- <div class="formgroup">
     <input type="text" name="search" id="search" class="text-search">
     <button type="button" class="btn-search">Search</button>
     <div class="search-results"></div>
-  </div>
-  <h1>
-    <%= data.months[data.currMonth] %>
-  </h1>
-  <a href="/admin/<%= data.prevMonth %>">Previous Month</a> |
-  <a href="/admin/<%= data.nextMonth %>">Next Month</a>
-  <table>
-    <tr>
-      <th>Date</th>
-      <th>Holiday</th>
-      <th>Tags</th>
-      <th>Actions</th>
-    </tr>
-    <% data.results.forEach(result=> { %>
-      <tr id="<%= result._id %>">
-        <td>
-          <%= result.month %>/<%= result.day %>
-        </td>
-        <td contenteditable="true" class="th-txtName">
-          <%= result.name %>
-        </td>
-        <td>
-          <% let tag=result.tags[0] ? result.tags[0].name : '' %>
-            <input list="th-tag-options" class="th-tag" name="th-tag" placeholder="Type to add..." value="<%= tag %>">
-        </td>
-        <td><button class="th-btnDelete">Delete</button></td>
-      </tr>
-      <% }); %>
-  </table>
-  <datalist id="th-tag-options">
-    <% data.tags.forEach(tag=> { %>
-      <option value="<%= tag.name %>">
-        <%= tag.name %>
-      </option>
-      <% }) %>
-  </datalist>
-  <hr>
-  <h2 id="tags">Tags <input type="text" name="txt-addTag" id="txt-addTag"><button id="btn-addTag" type="submit">Add
-      Tag</button>
-  </h2>
+  </div> -->
+    <div class="d-flex justify-content-between align-items-center bg-light px-4 py-3  mb-3">
+      <a href="/admin/<%= data.prevMonth %>" class="btn btn-sm btn-outline-secondary">&laquo; <%=
+          data.months[data.prevMonth] %></a>
+      <h1>
+        <%= data.months[data.currMonth] %>
+      </h1>
+      <a href="/admin/<%= data.nextMonth %>" class="btn btn-sm btn-outline-secondary">
+        <%= data.months[data.nextMonth] %> &raquo;
+      </a>
+    </div>
 
-  <table id="tagTable">
-    <tr>
-      <th>Tag Name</th>
-      <th></th>
-    </tr>
-    <!-- TODO: implement editable tags, implement add tag from this section -->
-    <% data.tags.forEach(tag=> { %>
-      <tr data-id="<%= tag._id %>">
-        <td>
-          <span class="th-tagName" data-id="<%= tag._id %>" contenteditable="true">
-            <%= tag.name %>
-          </span>
-          <span class="th-tagCount"> (<%= tag.count %>)</span>
-        </td>
-        <td>
-          <% if (tag.count===0) { %>
-            <button class="btn-removeTag" data-id="<%= tag._id %>">Delete</button>
-            <% } %>
-        </td>
+    <div class="d-flex justify-content-between mb-2">
+      <a href="#" class="btn btn-sm btn-light" id="btn-prevHolidayGroup">&laquo; Previous Holidays</a>
+      <a href="#" class="btn btn-sm btn-light" id="btn-nextHolidayGroup">Next Holidays &raquo;</a>
+    </div>
+
+    <table class="table table-sm align-middle">
+      <tr>
+        <th width="6%">Date</th>
+        <th width="49%">Holiday</th>
+        <th width="35%">Tags</th>
+        <th width="10%">&nbsp;</th>
       </tr>
-      <% }) %>
-  </table>
+      <tbody id="tbody-holidays">
+        <% data.results.forEach(result=> { %>
+          <tr id="<%= result._id %>" class="hide">
+            <td>
+              <%= result.month %>/<%= result.day %>
+            </td>
+            <td>
+              <span contenteditable="true" class="th-txtName">
+                <%= result.name %>
+              </span>
+            </td>
+            <td>
+              <% let tag=result.tags[0] ? result.tags[0].name : '' %>
+                <input list="th-tag-options" class="th-tag form-control" name="th-tag" placeholder="Type to add..."
+                  value="<%= tag %>">
+            </td>
+            <td class="text-center"><button class="th-btnDelete btn btn-outline-danger btn-sm">Delete</button></td>
+          </tr>
+          <% }); %>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-between">
+      <a href="#" class="btn btn-sm btn-light" id="btn-prevHolidayGroup2">&laquo; Previous Holidays</a>
+      <a href="#" class="btn btn-sm btn-light" id="btn-nextHolidayGroup2">Next Holidays &raquo;</a>
+    </div>
+    <datalist id="th-tag-options">
+      <% data.tags.forEach(tag=> { %>
+        <option value="<%= tag.name %>">
+          <%= tag.name %>
+        </option>
+        <% }) %>
+    </datalist>
+
+  </div>
+
 
   <script src="/js/admin.js"></script>
   <%- include('includes/_foot') %>

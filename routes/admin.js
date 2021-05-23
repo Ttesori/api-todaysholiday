@@ -10,6 +10,7 @@ router.post('/login', passport.authenticate('local', {
   successRedirect: `/admin/${currMonth()}`,
   failureRedirect: `/admin/?error=true`
 }), adminController.loginAdmin);
+router.get('/tags', isLoggedIn, adminController.manageTags);
 router.get('/:month', isLoggedIn, adminController.getHolidaysByMonth);
 
 

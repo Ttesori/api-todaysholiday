@@ -40,5 +40,26 @@ module.exports = {
     } catch (err) {
       console.log(err);
     }
+  },
+  manageTags: async (req, res) => {
+    try {
+      let results = await Holiday.find().populate('tags').sort({ day: 1 });
+      let tags = await Tag.find().sort({ name: 1 });
+      tags.forEach(tag => {
+        let count = 0;
+        results.forEach(result => {
+          if (result.tags[0] && (tag.name === result.tags[0].name)) count++;
+        });
+        tag.count = count;
+      });
+      res.render('admin-tags.ejs', {
+        data: {
+          tags: tags
+        },
+        title: 'Manage Tags'
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 }

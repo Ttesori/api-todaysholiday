@@ -5,26 +5,92 @@ const els = {
   btnSearch: document.querySelector('.btn-search'),
   txtsHolidayTagName: document.querySelectorAll('.th-tag'),
   searchResultsEl: document.querySelector('.search-results'),
-  txtAddTag: document.querySelector('#txt-addTag'),
-  btnAddTag: document.querySelector('#btn-addTag'),
-  tagNameEls: document.querySelectorAll('.th-tagName'),
-  btnRemoveTag: document.querySelectorAll('.btn-removeTag')
+  tbodyHolidaysEl: document.querySelector('#tbody-holidays'),
+  holidayTrEls: document.querySelectorAll('#tbody-holidays tr'),
+  btnNextHolidays: document.getElementById('btn-nextHolidayGroup'),
+  btnPrevHolidays: document.getElementById('btn-prevHolidayGroup'),
+  btnNextHolidays2: document.getElementById('btn-nextHolidayGroup2'),
+  btnPrevHolidays2: document.getElementById('btn-prevHolidayGroup2')
+}
+
+const state = {
+  currentMin: 0,
+  numToShow: 20,
+  total: els.holidayTrEls.length
 }
 
 const init = () => {
   showUpdates()
   addEventListeners()
+  showHolidays();
+  showOrHideButtons();
 }
 
 const addEventListeners = () => {
   els.btnsHolidayDelete.forEach(button => button.addEventListener('click', (e) => deleteHoliday(e.path[2].id)));
   setupHolidayNameEventListeners();
-  els.btnSearch.addEventListener('click', searchEvent);
+  //els.btnSearch.addEventListener('click', searchEvent);
   els.txtsHolidayTagName.forEach(tagEl => tagEl.addEventListener('blur', addTagToHoliday));
-  els.btnAddTag.addEventListener('click', addTag);
-  setupTagNameEventListeners();
-  els.btnRemoveTag.forEach(el => el.addEventListener('click', e => deleteTag(el.dataset.id)));
+  els.btnNextHolidays.addEventListener('click', changePagination);
+  els.btnPrevHolidays.addEventListener('click', changePagination);
+  els.btnNextHolidays2.addEventListener('click', changePagination);
+  els.btnPrevHolidays2.addEventListener('click', changePagination);
 }
+
+const showHolidays = () => {
+  // Show elements in range, hide the rest
+  for (let i = 0; i < els.holidayTrEls.length; i++) {
+    let el = els.holidayTrEls.item(i);
+    el.classList.add('hide');
+    if (i >= state.currentMin && i < (state.currentMin + state.numToShow)) {
+      el.classList.remove('hide');
+    }
+  }
+}
+
+const showOrHideButtons = () => {
+  // Show or hide buttons
+  els.btnNextHolidays.classList.remove('invisible');
+  els.btnPrevHolidays.classList.remove('invisible');
+  els.btnNextHolidays2.classList.remove('invisible');
+  els.btnPrevHolidays2.classList.remove('invisible');
+  if (state.currentMin - state.numToShow < 0) els.btnPrevHolidays.classList.add('invisible');
+  if (state.currentMin + state.numToShow > state.total) els.btnNextHolidays.classList.add('invisible');
+  if (state.currentMin - state.numToShow < 0) els.btnPrevHolidays2.classList.add('invisible');
+  if (state.currentMin + state.numToShow > state.total) els.btnNextHolidays2.classList.add('invisible');
+}
+
+const changePagination = (e = '') => {
+  // Increment or decrement numbers
+  let dir;
+  if (e) {
+    e.preventDefault();
+    let targetId = e.target.id;
+    dir = (targetId === 'btn-nextHolidayGroup2' || targetId === 'btn-nextHolidayGroup') ? '+' : '-';
+  } else {
+    dir = '+'
+  }
+
+  // If direction is plus
+  if (dir === '+') {
+    state.currentMin = state.currentMin + state.numToShow;
+    // if next is greater than length
+    if (state.currentMin > state.total) {
+      state.currentMin = state.pages * state.numToShow;
+    }
+  } else {
+    // Direction is minus
+    state.currentMin = state.currentMin - state.numToShow;
+    // If prev is less than 0
+    if (state.currentMin < 0) {
+      state.currentMin = 0;
+    }
+  }
+  showHolidays();
+  showOrHideButtons();
+
+}
+
 
 const showUpdates = () => {
   if (els.urlParams.get('updated')) {
@@ -60,7 +126,7 @@ const setupHolidayNameEventListeners = () => {
       let value = e.target.textContent.trim();
       if (nameTxtVal !== value) {
         // Update name in DB
-        updateHoliday(e.path[1].id, value);
+        updateHoliday(e.path[2].id, value);
       }
     });
   });
@@ -95,6 +161,7 @@ const addTagToHoliday = async (e) => {
 }
 
 const updateHoliday = async (id, value) => {
+  console.log(id, value);
   let update = {
     id: id,
     update: {
@@ -138,95 +205,5 @@ const deleteHoliday = async (id) => {
   }
 }
 
-let tagTxtVal;
-const setupTagNameEventListeners = () => {
-  // When element is clicked, save content
-  els.tagNameEls.forEach(el => {
-    el.addEventListener('click', (e) => {
-      tagTxtVal = e.target.textContent.trim();
-    });
-    // When element is clicked off of, compare content and save if different
-    el.addEventListener('blur', (e) => {
-      let value = e.target.textContent.trim();
-      if (tagTxtVal !== value) {
-        // Update name in DB
-        //console.log(el.dataset.id, tagTxtVal, value);
-        updateTag(el.dataset.id, value);
-      }
-    });
-  });
-}
-
-
-// Add new tag
-const addTag = async () => {
-  const newTag = els.txtAddTag.value;
-  if (newTag === '') return false;
-  try {
-    let resp = await fetch('/tags', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        tagname: newTag
-      })
-    });
-    let success = await resp.status;
-    if (success === 200) {
-      //console.log(resp);
-      alert('Tag has been added');
-      location.reload();
-    }
-  } catch (err) {
-    console.log(err)
-  }
-
-}
-
-// Change tag
-const updateTag = async (id, value) => {
-  if (value === '') return false;
-  try {
-    let resp = await fetch('/tags', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        id: id,
-        tagname: value
-      })
-    });
-    let success = await resp.status;
-    if (success === 200) {
-      //console.log(resp);
-      alert('Tag has been updated');
-      //location.href = '?addedTag=true';
-    }
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-// Delete tag only if holidays are zero
-const deleteTag = async (id) => {
-  try {
-    let resp = await fetch('/tags', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        id: id
-      })
-    });
-    console.log(await resp.json());
-    alert('Tag has been removed');
-    document.querySelector(`tr[data-id="${id}"]`).remove();
-  } catch (err) {
-    console.log(err)
-  }
-}
 
 init();
