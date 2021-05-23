@@ -1,9 +1,4 @@
 <%- include('includes/_head') %>
-  <style>
-    .updated {
-      color: green;
-    }
-  </style>
   <a href="/admin/logout" class="btn">Logout</a>
   <div class="formgroup">
     <input type="text" name="search" id="search" class="text-search">
@@ -46,17 +41,23 @@
       <% }) %>
   </datalist>
   <hr>
-  <h2>Tags</h2>
-  <table>
+  <h2 id="tags">Tags <input type="text" name="txt-addTag" id="txt-addTag"><button id="btn-addTag" type="submit">Add
+      Tag</button>
+  </h2>
+
+  <table id="tagTable">
     <tr>
       <th>Tag Name</th>
       <th></th>
     </tr>
     <!-- TODO: implement editable tags, implement add tag from this section -->
     <% data.tags.forEach(tag=> { %>
-      <tr>
-        <td contenteditable="true" data-id="<%= tag._id %>">
-          <%= tag.name %> (<%= tag.count %>)
+      <tr data-id="<%= tag._id %>">
+        <td>
+          <span class="th-tagName" data-id="<%= tag._id %>" contenteditable="true">
+            <%= tag.name %>
+          </span>
+          <span class="th-tagCount"> (<%= tag.count %>)</span>
         </td>
         <td>
           <% if (tag.count===0) { %>
@@ -66,6 +67,6 @@
       </tr>
       <% }) %>
   </table>
-  <form><input type="text" name="txt-addTag" id="txt-addTag">Add Tag</button></form>
+
   <script src="/js/admin.js"></script>
   <%- include('includes/_foot') %>
