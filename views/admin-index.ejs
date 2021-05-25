@@ -5,28 +5,32 @@
     <button type="button" class="btn-search">Search</button>
     <div class="search-results"></div>
   </div> -->
-    <div class="d-flex justify-content-between align-items-center bg-light px-4 py-3  mb-3">
-      <a href="/admin/<%= data.prevMonth %>" class="btn btn-sm btn-outline-secondary">&laquo; <%=
-          data.months[data.prevMonth] %></a>
+    <div class="th-month d-flex justify-content-between align-items-center">
+      <a href="/admin/<%= data.prevMonth %>" class="th-btn-month th-btn-prev btn btn-sm">&laquo; <%=
+          data.months[data.prevMonth] %>
+      </a>
       <h1>
         <%= data.months[data.currMonth] %>
       </h1>
-      <a href="/admin/<%= data.nextMonth %>" class="btn btn-sm btn-outline-secondary">
+      <a href="/admin/<%= data.nextMonth %>" class="th-btn-month th-btn-next btn btn-sm">
         <%= data.months[data.nextMonth] %> &raquo;
       </a>
     </div>
 
-    <div class="d-flex justify-content-between mb-2">
-      <a href="#" class="btn btn-sm btn-light" id="btn-prevHolidayGroup">&laquo; Previous Holidays</a>
-      <a href="#" class="btn btn-sm btn-light" id="btn-nextHolidayGroup">Next Holidays &raquo;</a>
-    </div>
 
     <table class="table table-sm align-middle">
-      <tr>
-        <th width="6%">Date</th>
-        <th width="49%">Holiday</th>
-        <th width="35%">Tags</th>
-        <th width="10%">&nbsp;</th>
+      <thead>
+        <tr>
+          <th width="7%">Date</th>
+          <th width="49%">Holiday</th>
+          <th width="34%">Tags</th>
+          <th width="10%">&nbsp;</th>
+        </tr>
+      </thead>
+      <tr class="th-holiday-nav">
+        <td colspan="2"><a href="#" class="th-btn-holidays" id="btn-prevHolidayGroup">&laquo; Previous Holidays</a></td>
+        <td colspan="2" class="text-end"><a href="#" class="th-btn-holidays" id="btn-nextHolidayGroup">Next Holidays
+            &raquo;</a></td>
       </tr>
       <tbody id="tbody-holidays">
         <% data.results.forEach(result=> { %>

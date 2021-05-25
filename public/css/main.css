@@ -1,0 +1,155 @@
+/*
+TODO: Figure out how to style previous and next calendar icons
+*/
+
+:root {
+  font-size:18px;
+  --th-primary:#12c2e9;
+  --th-secondary:#f64f59;
+  --th-accent-dk: #c471ed;
+  --th-accent-lt: #ffc107;
+  --th-neutral-dk: #403b44;
+  --th-neutral-lt: #eceaed;
+  --th-font: 'Bree Serif', 'Roboto Slab', serif;
+  --th-font-body: 'PT Sans','Open Sans',Helvetica,sans-serif;
+}
+
+body {
+  color: var(--th-neutral-dk);
+  font-family: var(--th-font-body);
+}
+
+h1, h2, h3, th {
+  font-family:var(--th-font);
+}
+
+.th-header {
+  background: linear-gradient(to right, var(--th-primary), var(--th-accent-dk), var(--th-secondary));
+  text-shadow:0px 0px 5px rgba(64, 59, 68, 0.2);
+  padding:1em 0;
+  margin-bottom:2em;
+  border-bottom:3px solid var(--th-neutral-lt);
+}
+
+.th-header a {
+  color:#fff;
+  
+}
+
+.th-header .container {
+  flex-direction: column;
+}
+
+.th-header .navbar-brand {
+  margin-right:1em;
+  padding-bottom:.5em;
+  text-align: center;
+}
+
+.th-header .navbar-brand img {
+  filter: drop-shadow(0 0 3px rgba(64, 59, 68, 0.3));
+  max-width:500px;
+}
+
+.th-header .navbar-nav {
+  flex-direction: row;
+  justify-content: center;
+  background:rgba(64, 59, 68, 0.15);
+  border-radius:5px;
+}
+.th-header a.nav-link {
+  padding:.5em 1em;
+  font-family:var(--th-font);
+  text-shadow: 0px 0px 3px rgba(64, 59, 68, 0.4);
+  letter-spacing:.03em;
+}
+
+.th-header a:hover.nav-link {
+  color:#fff;
+  border-radius:2px;
+  background:rgba(64, 59, 68, .3);
+}
+
+.hide {
+  display: none;
+}
+
+.th-tagName {
+  padding: .25rem .5rem;
+  border-radius: 5px;
+  margin-right: 1rem;
+  display: inline-block;
+}
+
+.th-txtName {
+  padding: .25rem .5rem;
+  border-radius: 5px;
+  margin-right: 1rem;
+  display: block;
+}
+
+.th-tagName:hover,
+.th-txtName:hover {
+  transition: all .3s ease;
+  background: #eee;
+}
+
+.btn-removeTag {
+  cursor: pointer;
+  visibility: hidden;
+}
+
+.th-tag:hover .btn-removeTag {
+  visibility: visible;
+}
+
+.th-month {
+  border-bottom:2px solid #eee;
+  margin-bottom:1em;
+}
+
+.th-month h1 {
+  font-size:2.1rem;
+}
+
+.th-btn-month {
+  border:1px solid var(--th-primary);
+  color:var(--th-primary);
+  font-family: var(--th-font);
+  font-size:1rem;
+  padding:.2em .8em;
+  letter-spacing:.03em;
+}
+
+.th-btn-month:hover {
+  border-color: var(--th-secondary);
+  color:var(--th-secondary);
+}
+
+.th-holidays-nav {
+  background: #ccc;
+  padding:.25em;
+}
+.th-holiday-nav {
+
+}
+.th-holiday-nav td {
+  padding:.1em .25em;
+  background: #eee;
+}
+.th-holiday-nav td a {
+  
+  font-size:.8rem;
+  text-decoration: none;
+}
+
+.table th {
+  background:var(--th-primary);
+  border-bottom:0;
+}
+
+.th-footer {
+  background: linear-gradient(to right, var(--th-primary), var(--th-accent-dk), var(--th-secondary));
+  padding:3em;
+  margin-top:3em;
+}
