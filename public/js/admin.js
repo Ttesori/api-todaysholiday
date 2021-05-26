@@ -50,22 +50,23 @@ const showHolidays = () => {
 
 const showOrHideButtons = () => {
   // Show or hide buttons
-  els.btnNextHolidays.classList.remove('invisible');
-  els.btnPrevHolidays.classList.remove('invisible');
-  els.btnNextHolidays2.classList.remove('invisible');
-  els.btnPrevHolidays2.classList.remove('invisible');
-  if (state.currentMin - state.numToShow < 0) els.btnPrevHolidays.classList.add('invisible');
-  if (state.currentMin + state.numToShow > state.total) els.btnNextHolidays.classList.add('invisible');
-  if (state.currentMin - state.numToShow < 0) els.btnPrevHolidays2.classList.add('invisible');
-  if (state.currentMin + state.numToShow > state.total) els.btnNextHolidays2.classList.add('invisible');
+  els.btnNextHolidays.classList.remove('disabled');
+  els.btnPrevHolidays.classList.remove('disabled');
+  els.btnNextHolidays2.classList.remove('disabled');
+  els.btnPrevHolidays2.classList.remove('disabled');
+  if (state.currentMin - state.numToShow < 0) els.btnPrevHolidays.classList.add('disabled');
+  if (state.currentMin + state.numToShow > state.total) els.btnNextHolidays.classList.add('disabled');
+  if (state.currentMin - state.numToShow < 0) els.btnPrevHolidays2.classList.add('disabled');
+  if (state.currentMin + state.numToShow > state.total) els.btnNextHolidays2.classList.add('disabled');
 }
 
 const changePagination = (e = '') => {
   // Increment or decrement numbers
+  if (e.path[1].classList.contains('disabled')) return false;
   let dir;
   if (e) {
     e.preventDefault();
-    let targetId = e.target.id;
+    let targetId = e.target.id || e.path[1].id;
     dir = (targetId === 'btn-nextHolidayGroup2' || targetId === 'btn-nextHolidayGroup') ? '+' : '-';
   } else {
     dir = '+'
@@ -88,7 +89,7 @@ const changePagination = (e = '') => {
   }
   showHolidays();
   showOrHideButtons();
-
+  console.log(state);
 }
 
 

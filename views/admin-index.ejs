@@ -6,14 +6,15 @@
     <div class="search-results"></div>
   </div> -->
     <div class="th-month d-flex justify-content-between align-items-center">
-      <a href="/admin/<%= data.prevMonth %>" class="th-btn-month th-btn-prev btn btn-sm">&laquo; <%=
-          data.months[data.prevMonth] %>
+      <a href="/admin/<%= data.prevMonth %>" class="th-btn-month th-btn-prev btn btn-sm"><i
+          class="fas fa-arrow-left"></i>
+        <%= data.months[data.prevMonth] %>
       </a>
       <h1>
         <%= data.months[data.currMonth] %>
       </h1>
       <a href="/admin/<%= data.nextMonth %>" class="th-btn-month th-btn-next btn btn-sm">
-        <%= data.months[data.nextMonth] %> &raquo;
+        <%= data.months[data.nextMonth] %> <i class="fas fa-arrow-right"></i>
       </a>
     </div>
 
@@ -21,21 +22,19 @@
     <table class="table table-sm align-middle">
       <thead>
         <tr>
-          <th width="7%">Date</th>
+          <th width="7%" class="text-center">Date</th>
           <th width="49%">Holiday</th>
           <th width="34%">Tags</th>
-          <th width="10%">&nbsp;</th>
+          <th width="10%" class="th-holiday-nav"><a href="#" class="th-nav-holidays" id="btn-prevHolidayGroup"
+              title="Load previous holidays"><i class="fas fa-arrow-left"></i></a><a href="#" class="th-nav-holidays"
+              id="btn-nextHolidayGroup" title="Load next holidays"><i class="fas fa-arrow-right"></i>
+          </th>
         </tr>
       </thead>
-      <tr class="th-holiday-nav">
-        <td colspan="2"><a href="#" class="th-btn-holidays" id="btn-prevHolidayGroup">&laquo; Previous Holidays</a></td>
-        <td colspan="2" class="text-end"><a href="#" class="th-btn-holidays" id="btn-nextHolidayGroup">Next Holidays
-            &raquo;</a></td>
-      </tr>
       <tbody id="tbody-holidays">
         <% data.results.forEach(result=> { %>
           <tr id="<%= result._id %>" class="hide">
-            <td>
+            <td class="text-center">
               <%= result.month %>/<%= result.day %>
             </td>
             <td>
@@ -48,14 +47,20 @@
                 <input list="th-tag-options" class="th-tag form-control" name="th-tag" placeholder="Type to add..."
                   value="<%= tag %>">
             </td>
-            <td class="text-center"><button class="th-btnDelete btn btn-outline-danger btn-sm">Delete</button></td>
+            <td class="text-center"><button class="th-btnDelete" title="Delete This Holiday"><i
+                  class="fas fa-times"></i></button></td>
           </tr>
           <% }); %>
       </tbody>
     </table>
     <div class="d-flex justify-content-between">
-      <a href="#" class="btn btn-sm btn-light" id="btn-prevHolidayGroup2">&laquo; Previous Holidays</a>
-      <a href="#" class="btn btn-sm btn-light" id="btn-nextHolidayGroup2">Next Holidays &raquo;</a>
+      <a href="#" class="th-nav-holidays-btm" id="btn-prevHolidayGroup2" title="Load previous holidays">&laquo; Previous
+        Holidays</a>
+      <span class="th-total">
+        <%= data.results.length %> Total Holidays
+      </span>
+      <a href="#" class="th-nav-holidays-btm" id="btn-nextHolidayGroup2" title="Load next holidays">Next Holidays
+        &raquo;</a>
     </div>
     <datalist id="th-tag-options">
       <% data.tags.forEach(tag=> { %>
