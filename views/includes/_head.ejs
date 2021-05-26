@@ -5,9 +5,29 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/img/th-mark.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.css"
+    integrity="sha512-3icgkoIO5qm2D4bGSUkPqeQ96LS8+ukJC7Eqhl1H5B2OJMEnFqLmNDxXVmtV/eq5M65tTDkUYS/Q0P4gvZv+yA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=PT+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
   <title>
     <%= title %> | Funny Holidays API
   </title>
 </head>
 
-<body>
+<body class="<%= bodyClass %>">
+  <header class="th-header">
+    <div class="container d-flex">
+      <a class="navbar-brand" href="/admin">
+        <img src="/img/th-logo-reverse.svg"></a>
+      <nav class="navbar-nav d-flex">
+        <a class="nav-link" href="/admin" id="th-nav-admin"><i class="fas fa-edit"></i> Manage Holidays</a>
+        <a class="nav-link" href="/admin/tags" id="th-nav-tags"><i class="fas fa-tags"></i> Manage Tags</a>
+        <a class="nav-link" href="/admin/logout"><i class="fas fa-power-off"></i> Logout</a>
+      </nav>
+    </div>
+  </header>

@@ -1,24 +1,51 @@
-<%- include('includes/_head') %>
+<!DOCTYPE html>
+<html lang="en">
 
-  <div class="container">
-    <h1>Log In</h1>
-    <% if (error) { %>
-      <p class="msg">
-        Your username or password is incorrect.
-      </p>
-      <% } %>
-        <form action="/admin/login" method="post">
-          <div class="formgroup">
-            <label for="username">Username:</label>
-            <input type="text" name="username" id="username" required>
-          </div>
-          <div class="formgroup">
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password" required>
-          </div>
-          <button type="submit">Log In</button>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.css"
+    integrity="sha512-3icgkoIO5qm2D4bGSUkPqeQ96LS8+ukJC7Eqhl1H5B2OJMEnFqLmNDxXVmtV/eq5M65tTDkUYS/Q0P4gvZv+yA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=PT+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+  <title>
+    <%= title %> | Funny Holidays API
+  </title>
+</head>
+
+<body class="th-login">
+  <div class="body-wrapper">
+    <header class="th-header">
+      <div class="container d-flex">
+        <a class="navbar-brand" href="/admin">
+          <img src="/img/th-logo-reverse-stacked.svg"></a>
+      </div>
+    </header>
+    <main class="th-login-form">
+      <h1>Sign In</h1>
+      <% if (error) { %>
+        <p class="msg">
+          Your username or password is incorrect.
+        </p>
+        <% } %>
+          <form action="/admin/login" method="post">
+            <div class="formgroup">
+              <label for="username" class="form-label">Username:</label>
+              <input type="text" name="username" id="username" required class="form-control form-control-sm"
+                placeholder="Enter your username...">
+            </div>
+            <div class="formgroup">
+              <label for="password" class="form-label">Password:</label>
+              <input type="password" name="password" id="password" required class="form-control form-control-sm"
+                placeholder="Enter your password...">
+            </div>
+            <button type="submit" class="th-btn-login">Sign In</button>
+          </form>
+    </main>
+    <%- include('includes/_foot') %>
   </div>
-  </form>
-
-
-  <%- include('includes/_foot') %>

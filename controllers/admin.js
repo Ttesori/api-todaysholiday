@@ -33,9 +33,32 @@ module.exports = {
           currMonth: month,
           prevMonth: month === 1 ? 12 : month - 1,
           nextMonth: month === 12 ? 1 : month + 1,
+          tags: tags,
+        },
+        title: 'Admin Dashboard',
+        bodyClass: 'th-page-admin'
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  manageTags: async (req, res) => {
+    try {
+      let results = await Holiday.find().populate('tags').sort({ day: 1 });
+      let tags = await Tag.find().sort({ name: 1 });
+      tags.forEach(tag => {
+        let count = 0;
+        results.forEach(result => {
+          if (result.tags[0] && (tag.name === result.tags[0].name)) count++;
+        });
+        tag.count = count;
+      });
+      res.render('admin-tags.ejs', {
+        data: {
           tags: tags
         },
-        title: 'Admin Dashboard'
+        title: 'Manage Tags',
+        bodyClass: 'th-page-tags'
       });
     } catch (err) {
       console.log(err);
