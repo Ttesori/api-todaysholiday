@@ -1,7 +1,7 @@
 const els = {
   urlParams: new URLSearchParams(window.location.search),
   btnsHolidayDelete: document.querySelectorAll('.th-btnDelete'),
-  txtsHoldayName: document.querySelectorAll('.th-txtName'),
+  txtsHolidayName: document.querySelectorAll('.th-txtName'),
   btnSearch: document.querySelector('.btn-search'),
   txtsHolidayTagName: document.querySelectorAll('.th-tag'),
   searchResultsEl: document.querySelector('.search-results'),
@@ -30,11 +30,12 @@ const addEventListeners = () => {
   els.btnsHolidayDelete.forEach(button => button.addEventListener('click', (e) => deleteHoliday(e.path[2].id)));
   setupHolidayNameEventListeners();
   //els.btnSearch.addEventListener('click', searchEvent);
-  els.txtsHolidayTagName.forEach(tagEl => tagEl.addEventListener('blur', addTagToHoliday));
+  //els.txtsHolidayTagName.forEach(tagEl => tagEl.addEventListener('blur', addTagToHoliday));
   els.btnNextHolidays.addEventListener('click', changePagination);
   els.btnPrevHolidays.addEventListener('click', changePagination);
   els.btnNextHolidays2.addEventListener('click', changePagination);
   els.btnPrevHolidays2.addEventListener('click', changePagination);
+  setupTagNameEventListeners();
 }
 
 const showHolidays = () => {
@@ -89,7 +90,6 @@ const changePagination = (e = '') => {
   }
   showHolidays();
   showOrHideButtons();
-  console.log(state);
 }
 
 
@@ -102,23 +102,10 @@ const showUpdates = () => {
 }
 
 
-const searchEvent = async (e) => {
-  let query = encodeURIComponent(document.querySelector('.text-search').value);
-  let resp = await fetch(`/holidays/search?s=${query}`);
-  let results = await resp.json();
-  if (!results.length) return els.searchResultsEl.textContent = 'No results found.';
-  results.forEach(result => {
-    const newEl = document.createElement('li');
-    newEl.textContent = `${result.month}/${result.day}: ${result.name}`;
-    els.searchResultsEl.appendChild(newEl);
-  });
-}
-
-
 const setupHolidayNameEventListeners = () => {
   let nameTxtVal;
   // When element is clicked, save content
-  els.txtsHoldayName.forEach(nameTxt => {
+  els.txtsHolidayName.forEach(nameTxt => {
     nameTxt.addEventListener('click', (e) => {
       nameTxtVal = e.target.textContent.trim();
     });
@@ -127,6 +114,24 @@ const setupHolidayNameEventListeners = () => {
       let value = e.target.textContent.trim();
       if (nameTxtVal !== value) {
         // Update name in DB
+        addTagToHoliday(e.path[2].id, value);
+      }
+    });
+  });
+}
+
+const setupTagNameEventListeners = () => {
+  let tagTxtVal;
+  // When element is clicked, save content
+  els.txtsHolidayTagName.forEach(tagTxt => {
+    tagTxt.addEventListener('click', (e) => {
+      tagTxtVal = e.path[0].value;
+    });
+    // When element is clicked off of, compare content and save if different
+    tagTxt.addEventListener('blur', (e) => {
+      let value = e.path[0].value;
+      if (tagTxtVal !== value) {
+        // Update tag in DB
         updateHoliday(e.path[2].id, value);
       }
     });
@@ -134,9 +139,7 @@ const setupHolidayNameEventListeners = () => {
 }
 
 
-const addTagToHoliday = async (e) => {
-  const id = e.target.parentElement.parentElement.id;
-  const selectedTag = e.target.value;
+const addTagToHoliday = async (id, selectedTag) => {
   if (selectedTag === '') return false;
   const body = {
     holiday_id: id,
@@ -162,7 +165,6 @@ const addTagToHoliday = async (e) => {
 }
 
 const updateHoliday = async (id, value) => {
-  console.log(id, value);
   let update = {
     id: id,
     update: {

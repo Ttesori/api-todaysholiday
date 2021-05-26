@@ -16,6 +16,7 @@ The application was originally designed as a simple CRUD API, but eventually wan
 Future optimizations that I'd like to add to this: 
 - More robust alert/confirmation system when making changes on the administration dashboard.
 - The ability to add multiple tags to a holiday through the administration dashboard.
+- Documentation to the home page so others can use the API
 
 ## Lessons Learned:
 
