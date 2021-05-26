@@ -33,9 +33,10 @@ module.exports = {
           currMonth: month,
           prevMonth: month === 1 ? 12 : month - 1,
           nextMonth: month === 12 ? 1 : month + 1,
-          tags: tags
+          tags: tags,
         },
-        title: 'Admin Dashboard'
+        title: 'Admin Dashboard',
+        bodyClass: 'th-page-admin'
       });
     } catch (err) {
       console.log(err);
@@ -56,7 +57,8 @@ module.exports = {
         data: {
           tags: tags
         },
-        title: 'Manage Tags'
+        title: 'Manage Tags',
+        bodyClass: 'th-page-tags'
       });
     } catch (err) {
       console.log(err);

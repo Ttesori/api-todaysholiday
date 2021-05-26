@@ -19,14 +19,14 @@
   </title>
 </head>
 
-<body>
+<body class="<%= bodyClass %>">
   <header class="th-header">
     <div class="container d-flex">
       <a class="navbar-brand" href="/admin">
         <img src="/img/th-logo-reverse.svg"></a>
       <nav class="navbar-nav d-flex">
-        <a class="nav-link" href="/admin"><i class="fas fa-edit"></i> Manage Holidays</a>
-        <a class="nav-link" href="/admin/tags"><i class="fas fa-tags"></i> Manage Tags</a>
+        <a class="nav-link" href="/admin" id="th-nav-admin"><i class="fas fa-edit"></i> Manage Holidays</a>
+        <a class="nav-link" href="/admin/tags" id="th-nav-tags"><i class="fas fa-tags"></i> Manage Tags</a>
         <a class="nav-link" href="/admin/logout"><i class="fas fa-power-off"></i> Logout</a>
       </nav>
     </div>

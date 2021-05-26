@@ -79,6 +79,10 @@ h1, h2, h3, th {
   background:rgba(64, 59, 68, .3);
 }
 
+.th-page-admin #th-nav-admin, .th-page-tags #th-nav-tags {
+  background:rgba(64, 59, 68, .15)
+} 
+
 .hide {
   display: none;
 }
