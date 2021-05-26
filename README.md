@@ -1,4 +1,4 @@
-![Today's Holiday Logo](https://todaysholiday.herokuapp.com/img/th-logo.png)
+<img src="https://todaysholiday.herokuapp.com/img/th-logo.png" alt="Today's Holidays Logo" width="85%">
 
 # Today's Holidays API
 This project is an API to serve up offbeat/funny holidays for a particular month or day. It also includes an administration area to manage the list of holidays.
