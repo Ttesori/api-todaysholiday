@@ -22,3 +22,4 @@ Future optimizations that I'd like to add to this:
 - The ability to add multiple tags to a holiday through the administration dashboard.
 - Documentation to the home page so others can use the API
 - Add search to admin dashboard
+- More robust responsive styling
