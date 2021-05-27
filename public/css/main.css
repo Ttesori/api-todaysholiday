@@ -23,6 +23,10 @@ h1, h2, h3, th {
   font-family:var(--th-font);
 }
 
+.container {
+  max-width:1050px;
+}
+
 .fas {
   margin:0 3px;
 }
@@ -371,5 +375,86 @@ padding-bottom:.25em;
 
   .th-login-form {
     padding:1em 2em;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    max-width:650px;
+  }
+  .th-header .navbar-nav {
+    font-size:.9rem;
+  }
+}
+
+@media screen and (max-width:576px) {
+  .th-header {
+    margin-bottom:1rem;
+  }
+  .th-month {
+    flex-wrap:wrap;
+    
+  }
+
+  .th-btn-month {
+    width:45%;
+    order:2;
+  }
+
+  .th-month h1 {
+    order:1;
+    width:100%;
+    text-align:center;
+  }
+  .th-header .navbar-nav {
+    flex-direction:column;
+    font-size:.9rem;
+    text-align: center;
+  }
+
+  .th-header .navbar-nav .nav-link {
+    padding:.25rem;
+  }
+
+  .th-btn-month {
+    font-size:.8rem;
+  }
+
+  #tbody-holidays td {
+    font-size:.9rem;
+    padding:0;
+    line-height:1.4;
+  }
+
+  .col-tags {
+    display:none;
+  }
+
+  .th-btnDelete {
+    font-size:.8rem;
+    padding:0 .25rem;
+  }
+
+  .th-txtName {
+    margin:0;
+  }
+
+  .th-total {
+    display:none;
+  }
+
+  .th-nav-holiday-btm-container {
+    flex-direction: column;
+    margin:0 1rem;
+  }
+
+  .th-nav-holidays-btm {
+    margin-bottom:.25rem;
+    text-align:center;
+  }
+
+  .th-footer {
+    padding:1rem;
+    font-size:.8rem;
   }
 }

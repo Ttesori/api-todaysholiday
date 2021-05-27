@@ -24,7 +24,7 @@
         <tr>
           <th width="7%" class="text-center">Date</th>
           <th width="49%">Holiday</th>
-          <th width="34%">Tags</th>
+          <th width="34%" class="col-tags">Tags</th>
           <th width="10%" class="th-holiday-nav"><a href="#" class="th-nav-holidays" id="btn-prevHolidayGroup"
               title="Load previous holidays"><i class="fas fa-arrow-left"></i></a><a href="#" class="th-nav-holidays"
               id="btn-nextHolidayGroup" title="Load next holidays"><i class="fas fa-arrow-right"></i>
@@ -42,7 +42,7 @@
                 <%= result.name %>
               </span>
             </td>
-            <td>
+            <td class="col-tags">
               <% let tag=result.tags[0] ? result.tags[0].name : '' %>
                 <input list="th-tag-options" class="th-tag form-control" name="th-tag" placeholder="Type to add..."
                   value="<%= tag %>">
@@ -53,7 +53,7 @@
           <% }); %>
       </tbody>
     </table>
-    <div class="d-flex justify-content-between">
+    <div class="th-nav-holiday-btm-container d-flex justify-content-between">
       <a href="#" class="th-nav-holidays-btm" id="btn-prevHolidayGroup2" title="Load previous holidays">&laquo; Previous
         Holidays</a>
       <span class="th-total">
