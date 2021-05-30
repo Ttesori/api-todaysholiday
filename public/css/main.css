@@ -520,10 +520,13 @@ a:hover.th-nav-holidays.disabled {
 }
 
 .th-api li a {
-  font-size: 0.9rem;
   color: #12c2e9;
   transition: color 0.2s;
 }
+.th-api .endpoint li a {
+  font-size: 0.9rem;
+}
+
 .th-api li a:hover {
   color: #f64f59;
 }
