@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=PT+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+  <title>Today's Holidays API</title>
+</head>
+
+<body>
+  <header class="th-header">
+    <div class="container d-flex">
+      <a class="navbar-brand" href="/">
+        <img src="/img/th-logo-reverse.svg"></a>
+    </div>
+  </header>
+  <main>
+    <div class="th-api container">
+      <h1 class="mb-3">Today's Holidays API</h1>
+      <article class="th-summary">
+        <h2>Summary</h2>
+        <p>Today's Holidays API serves up weird/funny holidays for a particular month and/or day. It can also
+          search the list of holidays.</p>
+        <h3>More Info</h3>
+        <ul>
+          <li>Repository: <a href="https://github.com/Ttesori/api-todaysholiday" target="_blank"
+              rel="noreferrer">https://github.com/Ttesori/api-todaysholiday</a></li>
+        </ul>
+
+      </article>
+      <article>
+        <h2>Endpoints</h2>
+        <p>Below is a list of endpoints used to access the API.</p>
+
+        <section class="endpoint pt-3">
+          <h3><span class="badge">GET</span> All Holidays</h3>
+          <blockquote>
+            <code>
+        <%= api_base %>
+      </code>
+          </blockquote>
+          <p>This endpoint accepts no parameters and returns a list of all holidays for every month of the year.
+          </p>
+          <h4>Example</h4>
+          <ul>
+            <li>All Holidays: <code><%= api_base %></code>
+              <a href="<%= api_base %>" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+            </li>
+
+          </ul>
+        </section>
+
+        <section class="endpoint">
+          <h3><span class="badge">GET</span> Holidays by Month</h3>
+          <blockquote>
+            <code>
+        <%= api_base %>/${month}
+      </code>
+          </blockquote>
+          <p>Replace <code>month</code> in the URL with the <code>int</code> month you would like holidays returned for.
+          </p>
+          <h4>Examples</h4>
+          <ul>
+            <li>March Holidays: <code><%= api_base %>/3</code>
+              <a href="<%= api_base %>/3" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+            </li>
+            <li>October Holidays: <code><%= api_base %>/10</code>
+              <a href="<%= api_base %>/10" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+            </li>
+          </ul>
+        </section>
+
+        <section class="endpoint">
+          <h3><span class="badge">GET</span> Holidays by Month and Day</h3>
+
+          <blockquote>
+            <code><%= api_base %>/${month}/%{day}</code>
+          </blockquote>
+
+
+          <p>Replace <code>month</code> and <code>day</code> in the URL with the <code>int</code> month and day you
+            would like holidays returned for.
+          </p>
+          <h4>Samples</h4>
+          <ul>
+            <li>March 1st Holidays: <code><%= api_base %>/3/1</code>
+              <a href="<%= api_base %>/3/1" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+            </li>
+            <li>October 26th Holidays: <code><%= api_base %>/10/26</code>
+              <a href="<%= api_base %>/10/26" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+            </li>
+          </ul>
+        </section>
+
+        <section class="endpoint">
+          <h3><span class="badge">GET</span> Search Holidays</h3>
+          <blockquote>
+            <code>
+        <%= api_base %>/search?s=${searchQuery}
+      </code>
+          </blockquote>
+          <p>Replace <code>searchQuery</code> and in the URL with the <code>encodeURIComponent</code> string you would
+            like holidays searched for.
+          </p>
+          <p>This returns all matching holidays throughout the year.</p>
+          <h4>Samples</h4>
+          <ul>
+            <li><code><%= api_base %>/search?s=dog</code>
+              <a href="<%= api_base %>/search?s=dog" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+            </li>
+            <li><code><%= api_base %>/search?s=video+game</code>
+              <a href="<%= api_base %>/search?s=video+game" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+            </li>
+          </ul>
+        </section>
+
+
+      </article>
+    </div>
+  </main>
+
+  <%- include('includes/_foot') %>
+</body>
+
+</html>

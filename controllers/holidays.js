@@ -5,25 +5,28 @@ module.exports = {
   getHolidays: async (req, res) => {
     try {
       const results = await Holiday.find();
-      res.json(results);
+      res.status(200).json(results);
     } catch (err) {
       console.log(err);
+      res.status(500).send();
     }
   },
   getHolidaysByMonth: async (req, res) => {
     try {
       let results = await Holiday.find({ month: req.params.month }).populate('tags');
-      res.json(results);
+      res.status(200).json(results);
     } catch (err) {
       console.log(err);
+      res.status(500).send();
     }
   },
   getHolidaysByMonthDay: async (req, res) => {
     try {
-      let results = await Holiday.find({ month: req.params.month, day: req.params.day });
+      let results = await Holiday.find({ month: req.params.month, day: req.params.day }).populate('tags');
       res.json(results);
     } catch (err) {
       console.log(err);
+      res.status(500).send();
     }
   },
   postHoliday: async (req, res) => {
@@ -72,7 +75,7 @@ module.exports = {
       let query = decodeURIComponent(req.query.s);
       let regex = new RegExp(query, 'i')
       let result = await Holiday.find({ name: regex }).exec();
-      res.json(result);
+      res.status(200).json(result);
     } catch (error) {
       console.log(err);
       res.status(400).json(err);

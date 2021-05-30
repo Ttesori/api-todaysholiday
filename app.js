@@ -16,7 +16,6 @@ const tagsRoutes = require('./routes/tags');
 connectDB();
 
 // Settings and Middleware
-app.use(cors());
 app.set('view engine', 'ejs');
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }));
@@ -36,6 +35,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // V. IMPORTANT: Routes have to come after all the passport setup stuff
+app.use(cors());
 app.use('/', homeRoutes);
 app.use('/holidays', holidaysRoutes);
 app.use('/admin', adminRoutes);

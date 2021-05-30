@@ -1,5 +1,7 @@
 module.exports = {
   getHome: (req, res) => {
-    res.send('API access available at /holidays!');
+    res.render('home.ejs', {
+      api_base: 'https://todaysholiday.herokuapp.com/holidays'
+    });
   }
 }
