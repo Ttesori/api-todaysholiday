@@ -27,7 +27,7 @@ const init = () => {
 }
 
 const addEventListeners = () => {
-  els.btnsHolidayDelete.forEach(button => button.addEventListener('click', (e) => deleteHoliday(e.path[2].id)));
+  els.btnsHolidayDelete.forEach(button => button.addEventListener('click', handleDeleteHoliday));
   setupHolidayNameEventListeners();
   //els.btnSearch.addEventListener('click', searchEvent);
   //els.txtsHolidayTagName.forEach(tagEl => tagEl.addEventListener('blur', addTagToHoliday));
@@ -36,6 +36,10 @@ const addEventListeners = () => {
   els.btnNextHolidays2.addEventListener('click', changePagination);
   els.btnPrevHolidays2.addEventListener('click', changePagination);
   setupTagNameEventListeners();
+}
+
+const handleDeleteHoliday = (e) => {
+  deleteHoliday(e.path[3].id)
 }
 
 const showHolidays = () => {
