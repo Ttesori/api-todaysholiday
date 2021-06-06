@@ -47,8 +47,8 @@
                 <input list="th-tag-options" class="th-tag form-control" name="th-tag" placeholder="Type to add..."
                   value="<%= tag %>">
             </td>
-            <td class="text-center"><button class="th-btnDelete" title="Delete This Holiday"><i
-                  class="fas fa-times"></i></button></td>
+            <td class="text-center"><button class="th-btnDelete" title="Delete This Holiday"
+                data-id="<%= result._id %>"><i class="fas fa-times"></i></button></td>
           </tr>
           <% }); %>
       </tbody>

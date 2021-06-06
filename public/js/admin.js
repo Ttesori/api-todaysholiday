@@ -39,7 +39,7 @@ const addEventListeners = () => {
 }
 
 const handleDeleteHoliday = (e) => {
-  deleteHoliday(e.path[3].id)
+  deleteHoliday(e.target.closest('button').dataset.id);
 }
 
 const showHolidays = () => {
@@ -67,11 +67,11 @@ const showOrHideButtons = () => {
 
 const changePagination = (e = '') => {
   // Increment or decrement numbers
-  if (e.path[1].classList.contains('disabled')) return false;
+  if (e.target.parentNode.classList.contains('disabled')) return false;
   let dir;
   if (e) {
     e.preventDefault();
-    let targetId = e.target.id || e.path[1].id;
+    let targetId = e.target.id || e.target.parentNode.id;
     dir = (targetId === 'btn-nextHolidayGroup2' || targetId === 'btn-nextHolidayGroup') ? '+' : '-';
   } else {
     dir = '+'
@@ -118,7 +118,7 @@ const setupHolidayNameEventListeners = () => {
       let value = e.target.textContent.trim();
       if (nameTxtVal !== value) {
         // Update name in DB
-        addTagToHoliday(e.path[2].id, value);
+        updateHoliday(e.target.closest('tr').id, value);
       }
     });
   });
@@ -129,14 +129,14 @@ const setupTagNameEventListeners = () => {
   // When element is clicked, save content
   els.txtsHolidayTagName.forEach(tagTxt => {
     tagTxt.addEventListener('click', (e) => {
-      tagTxtVal = e.path[0].value;
+      tagTxtVal = e.target.value;
     });
     // When element is clicked off of, compare content and save if different
     tagTxt.addEventListener('blur', (e) => {
-      let value = e.path[0].value;
+      let value = e.target.value;
       if (tagTxtVal !== value) {
         // Update tag in DB
-        updateHoliday(e.path[2].id, value);
+        addTagToHoliday(e.target.closest('tr').id, value);
       }
     });
   });
