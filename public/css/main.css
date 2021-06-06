@@ -385,7 +385,13 @@ a:hover.th-nav-holidays.disabled {
 .body-wrapper {
   display: grid;
   place-content: center;
-  height: 100vh;
+  min-height: 100vh;
+}
+
+@media screen and (max-width: 576px) {
+  .body-wrapper {
+    min-height: auto;
+  }
 }
 
 @media screen and (max-width: 768px) {
