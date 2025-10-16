@@ -1,3 +1,4 @@
+const dotenv = require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
 const session = require('express-session');
@@ -17,7 +18,7 @@ connectDB();
 
 // Settings and Middleware
 app.set('view engine', 'ejs');
-app.use(express.static('public'))
+app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

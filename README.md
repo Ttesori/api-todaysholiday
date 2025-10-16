@@ -4,7 +4,7 @@
 
 This project is an API to serve up offbeat/funny holidays for a particular month or day. It also includes an administration area to manage the list of holidays.
 
-**Link to project:** https://todaysholidaysapi.com/
+**Link to project:** https://todaysholiday.herokuapp.com/
 
 ## How It's Made:
 
